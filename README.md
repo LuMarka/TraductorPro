@@ -158,9 +158,9 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **P & M DevWeb**
 
-- 📧 Email: [contacto@pmdevweb.com]
-- 🌐 Website: [www.pmdevweb.com]
-- 💼 LinkedIn: [P & M DevWeb]
+- 💼 LinkedIn: [Luisa Markarian - IT Developer](https://www.linkedin.com/in/luisa-markarian-itdeveloper/)
+- 📧 Email: [luisamarkarian@gmail.com]
+
 
 ## 🔗 Enlaces Útiles
 
