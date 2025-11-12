@@ -43,8 +43,8 @@ Una aplicación móvil avanzada de traducción por voz desarrollada con React Na
 ### Opción 2: Desarrollo Local
 ```bash
 # Clona el repositorio
-git clone https://github.com/LuMarka/traductor-voz-app.git
-cd traductor-voz-app
+git clone https://github.com/LuMarka/TraductorPro.git
+cd traductorPro
 
 # Instala dependencias
 npm install
