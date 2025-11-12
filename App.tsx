@@ -8,7 +8,8 @@ import {
   Alert,
   ScrollView,
   ActivityIndicator,
-  Platform
+  Platform,
+  Modal
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -47,6 +48,13 @@ export default function App() {
   const [targetLanguage, setTargetLanguage] = useState('en-US');
   const [isLoading, setIsLoading] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [showSourceModal, setShowSourceModal] = useState(false);
+  const [showTargetModal, setShowTargetModal] = useState(false);
+
+  // Función para obtener el nombre del idioma por código
+  const getLanguageName = (code: string) => {
+    return languages.find(lang => lang.code === code)?.name || 'Idioma no encontrado';
+  };
 
   // Función para traducir texto usando API de MyMemory
   const translateText = async (text: string, sourceLang: string, targetLang: string) => {
@@ -144,17 +152,15 @@ export default function App() {
           <Text style={styles.sectionLabel}>
             <Ionicons name="create" size={16} color="#374151" /> Idioma de origen
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              selectedValue={sourceLanguage}
-              onValueChange={setSourceLanguage}
-              style={styles.picker}
-            >
-              {languages.map((lang) => (
-                <Picker.Item key={lang.code} label={lang.name} value={lang.code} />
-              ))}
-            </Picker>
-          </View>
+          <TouchableOpacity 
+            style={styles.languageButton}
+            onPress={() => setShowSourceModal(true)}
+          >
+            <Text style={styles.languageButtonText}>
+              {getLanguageName(sourceLanguage)}
+            </Text>
+            <Ionicons name="chevron-down" size={20} color="#3B82F6" />
+          </TouchableOpacity>
         </View>
 
         {/* Icono de intercambio */}
@@ -167,17 +173,15 @@ export default function App() {
           <Text style={styles.sectionLabel}>
             <Ionicons name="headset" size={16} color="#374151" /> Traducir a
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              selectedValue={targetLanguage}
-              onValueChange={setTargetLanguage}
-              style={styles.picker}
-            >
-              {languages.map((lang) => (
-                <Picker.Item key={lang.code} label={lang.name} value={lang.code} />
-              ))}
-            </Picker>
-          </View>
+          <TouchableOpacity 
+            style={styles.languageButton}
+            onPress={() => setShowTargetModal(true)}
+          >
+            <Text style={styles.languageButtonText}>
+              {getLanguageName(targetLanguage)}
+            </Text>
+            <Ionicons name="chevron-down" size={20} color="#3B82F6" />
+          </TouchableOpacity>
         </View>
 
         {/* Botón de traducir */}
@@ -220,10 +224,104 @@ export default function App() {
         {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            Desarrollado y diseñado por P & M DevWeb
+            Desarrollado y diseñado por Aurea DevWeb
           </Text>
         </View>
       </ScrollView>
+
+      {/* Modal de selección de idioma de origen */}
+      <Modal
+        visible={showSourceModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowSourceModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Seleccionar idioma de origen</Text>
+              <TouchableOpacity
+                onPress={() => setShowSourceModal(false)}
+                style={styles.closeButton}
+              >
+                <Ionicons name="close" size={24} color="#374151" />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.modalScrollView}>
+              {languages.map((lang) => (
+                <TouchableOpacity
+                  key={lang.code}
+                  style={[
+                    styles.languageOption,
+                    sourceLanguage === lang.code && styles.selectedLanguageOption
+                  ]}
+                  onPress={() => {
+                    setSourceLanguage(lang.code);
+                    setShowSourceModal(false);
+                  }}
+                >
+                  <Text style={[
+                    styles.languageOptionText,
+                    sourceLanguage === lang.code && styles.selectedLanguageOptionText
+                  ]}>
+                    {lang.name}
+                  </Text>
+                  {sourceLanguage === lang.code && (
+                    <Ionicons name="checkmark" size={20} color="#3B82F6" />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal de selección de idioma de destino */}
+      <Modal
+        visible={showTargetModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowTargetModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Seleccionar idioma de destino</Text>
+              <TouchableOpacity
+                onPress={() => setShowTargetModal(false)}
+                style={styles.closeButton}
+              >
+                <Ionicons name="close" size={24} color="#374151" />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.modalScrollView}>
+              {languages.map((lang) => (
+                <TouchableOpacity
+                  key={lang.code}
+                  style={[
+                    styles.languageOption,
+                    targetLanguage === lang.code && styles.selectedLanguageOption
+                  ]}
+                  onPress={() => {
+                    setTargetLanguage(lang.code);
+                    setShowTargetModal(false);
+                  }}
+                >
+                  <Text style={[
+                    styles.languageOptionText,
+                    targetLanguage === lang.code && styles.selectedLanguageOptionText
+                  ]}>
+                    {lang.name}
+                  </Text>
+                  {targetLanguage === lang.code && (
+                    <Ionicons name="checkmark" size={20} color="#3B82F6" />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -283,19 +381,12 @@ const styles = StyleSheet.create({
     color: '#374151',
     marginBottom: 10,
   },
-  pickerContainer: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#E5E7EB',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  picker: {
-    height: 50,
+  selectedLanguageDisplay: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#3B82F6',
+    marginBottom: 8,
+    paddingHorizontal: 5,
   },
   exchangeContainer: {
     alignItems: 'center',
@@ -369,5 +460,78 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#6B7280',
     textAlign: 'center',
+  },
+  // Estilos para botones de idioma
+  languageButton: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  languageButtonText: {
+    fontSize: 16,
+    color: '#374151',
+    fontWeight: '500',
+    flex: 1,
+  },
+  // Estilos para modales
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    maxHeight: '80%',
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#374151',
+  },
+  closeButton: {
+    padding: 5,
+  },
+  modalScrollView: {
+    maxHeight: 400,
+  },
+  languageOption: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
+  },
+  selectedLanguageOption: {
+    backgroundColor: '#EBF8FF',
+  },
+  languageOptionText: {
+    fontSize: 16,
+    color: '#374151',
+  },
+  selectedLanguageOptionText: {
+    color: '#3B82F6',
+    fontWeight: '600',
   },
 });

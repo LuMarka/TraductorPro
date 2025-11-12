@@ -156,7 +156,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 👨‍💻 Desarrollado por
 
-**P & M DevWeb**
+**Aurea DevWeb**
 
 - 💼 LinkedIn: [Luisa Markarian - IT Developer](https://www.linkedin.com/in/luisa-markarian-itdeveloper/)
 - 📧 Email: [luisamarkarian@gmail.com]

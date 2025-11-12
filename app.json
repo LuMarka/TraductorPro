@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pmdevweb.traductorpro"
+      "bundleIdentifier": "com.pmdevweb.traductorpro",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -35,6 +38,12 @@
       "eas": {
         "projectId": "b1e34c84-f31c-4d86-8b5a-7ed7a95bed0e"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b1e34c84-f31c-4d86-8b5a-7ed7a95bed0e"
     }
   }
 }
