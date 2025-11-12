@@ -36,7 +36,7 @@ Una aplicación móvil avanzada de traducción por voz desarrollada con React Na
 ## 🚀 Instalación
 
 ### Opción 1: Descargar APK (Recomendado)
-1. Descarga el APK desde: [Expo Build](https://expo.dev/artifacts/eas/3VPD22oHaNyzLD4dkHkdkP.apk)
+1. Descarga el APK desde: [Expo Build](https://expo.dev/accounts/lumarka/projects/traductorpro/builds/57469a6e-9fd2-4743-9cca-7e4c353d0f06)
 2. Instala en tu dispositivo Android
 3. ¡Listo para usar!
 
