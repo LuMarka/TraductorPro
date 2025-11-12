@@ -224,8 +224,9 @@ export default function App() {
         {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            Desarrollado y diseñado por Aurea DevWeb
-          </Text>
+            Desarrollado y diseñado por Aurea DevWeb</Text>
+          <Text style={styles.footerText}>
+            Traducción mediante MyMemory API</Text>
         </View>
       </ScrollView>
 
